@@ -3,725 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina - Modern Web Design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Pookie's Birthday</title>
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4895ef;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-        }
-        
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 2rem 0;
-            position: relative;
+            font-family: 'Georgia', serif;
+            background-color: #000;
+            color: #fff;
+            height: 100vh;
             overflow: hidden;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
             position: relative;
-            z-index: 2;
         }
         
-        .header-bg {
+        .page {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1470&auto=format&fit=crop');
-            background-size: cover;
-            opacity: 0.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
             z-index: 1;
         }
         
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4rem;
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+            z-index: 10;
         }
         
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 0.5rem;
-            color: var(--accent);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 2rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .hero {
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #ff6b8b;
             text-align: center;
-            padding: 4rem 0;
         }
         
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+        /* Countdown Page Styles */
+        .countdown-container {
+            text-align: center;
+            max-width: 800px;
         }
         
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
+        .countdown {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff8fab;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Birthday Page Styles */
+        .birthday-message {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1.6;
         }
         
         .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
+            background-color: transparent;
+            color: #ff8fab;
+            border: 2px solid #ff8fab;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            margin-top: 2rem;
         }
         
         .btn:hover {
-            background-color: white;
-            color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background-color: #ff8fab;
+            color: #000;
         }
         
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid white;
-            margin-left: 1rem;
-        }
-        
-        .btn-outline:hover {
-            background-color: white;
-            color: var(--primary);
-        }
-        
-        .features {
-            padding: 6rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        .showcase {
-            background-color: var(--primary);
-            color: white;
-            padding: 6rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .showcase::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop') center/cover;
-            opacity: 0.1;
-        }
-        
-        .showcase-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .showcase-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .showcase-text p {
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        .showcase-image {
-            position: relative;
-        }
-        
-        .showcase-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .stats {
-            padding: 6rem 0;
-            background-color: white;
-        }
-        
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            text-align: center;
-        }
-        
-        .stat-item h3 {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-item p {
-            color: #666;
-            font-weight: 500;
-        }
-        
-        .testimonials {
-            padding: 6rem 0;
-            background-color: #f5f7ff;
-        }
-        
-        .testimonials-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .testimonial-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-author img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 1rem;
-        }
-        
-        .author-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.2rem;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 0.9rem;
-        }
-        
-        .cta {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-        }
-        
-        .cta-container {
+        /* Poem Page Styles */
+        .poem-container {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .cta p {
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-        
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 4rem 0 2rem;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-        }
-        
-        .footer-col h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-        
-        .footer-col p {
-            margin-bottom: 1rem;
-            opacity: 0.8;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            color: white;
-            opacity: 0.8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--accent);
-            padding-left: 5px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
             text-align: center;
-            padding-top: 3rem;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
-            font-size: 0.9rem;
         }
         
+        .poem {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+        
+        .poem-line {
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInLine 1s forwards;
+        }
+        
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            color: #ff6b8b;
+            font-size: 20px;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        @keyframes fadeInLine {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            h1 {
+                font-size: 2rem;
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
+            .countdown {
+                gap: 1rem;
             }
             
-            .showcase-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .countdown-number {
+                font-size: 2rem;
             }
             
-            .showcase-image {
-                order: -1;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn-outline {
-                margin-left: 0;
-                margin-top: 1rem;
+            .birthday-message, .poem {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-bg"></div>
-        <div class="header-content">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-bolt"></i>
-                    <span>Lumina</span>
+    <!-- Countdown Page -->
+    <div class="page active" id="countdown-page">
+        <div class="countdown-container">
+            <h1>Counting Down to Pookie's Birthday</h1>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <div class="hero">
-                <h1>Create Stunning Websites With Ease</h1>
-                <p>Lumina is a powerful website builder that helps you create beautiful, responsive websites without any coding knowledge.</p>
-                <div class="hero-buttons">
-                    <a href="#" class="btn">Get Started</a>
-                    <a href="#" class="btn btn-outline">Learn More</a>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
                 </div>
             </div>
+            <!-- Testing button (hidden by default) -->
+            <button class="btn" id="test-btn" style="display: none;">Skip to Birthday</button>
         </div>
-    </header>
+    </div>
     
-    <section class="features">
-        <div class="section-title">
-            <h2>Amazing Features</h2>
-            <p>Discover what makes Lumina stand out from the crowd</p>
+    <!-- Birthday Page -->
+    <div class="page" id="birthday-page">
+        <h1>Happy Birthday Pookie! 🎉</h1>
+        <p class="birthday-message">Wishing you the most wonderful day filled with love and happiness!</p>
+        <button class="btn" id="poem-btn">See How Much I Love You</button>
+    </div>
+    
+    <!-- Poem Page -->
+    <div class="page" id="poem-page">
+        <div class="poem-container">
+            <h1>For Teju Pookie, With All My Love</h1>
+            <div class="poem">
+                <div class="poem-line" style="animation-delay: 0.5s">In a world so vast, so wide, so free,</div>
+                <div class="poem-line" style="animation-delay: 1.5s">There's no one more precious than you to me.</div>
+                <div class="poem-line" style="animation-delay: 2.5s">Your smile outshines the brightest star,</div>
+                <div class="poem-line" style="animation-delay: 3.5s">Your love heals every wound and scar.</div>
+                <div class="poem-line" style="animation-delay: 4.5s">Through every season, come what may,</div>
+                <div class="poem-line" style="animation-delay: 5.5s">My heart is yours in every way.</div>
+                <div class="poem-line" style="animation-delay: 6.5s">Happy birthday, my love, my light,</div>
+                <div class="poem-line" style="animation-delay: 7.5s">You make my whole world shine so bright. Aama Kunju</div>
+            </div>
+            <button class="btn" id="back-btn">Back to Birthday</button>
         </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const countdownPage = document.getElementById('countdown-page');
+        const birthdayPage = document.getElementById('birthday-page');
+        const poemPage = document.getElementById('poem-page');
+        const poemBtn = document.getElementById('poem-btn');
+        const backBtn = document.getElementById('back-btn');
+        const testBtn = document.getElementById('test-btn');
         
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-magic"></i>
-                </div>
-                <h3>Drag & Drop</h3>
-                <p>Build your dream website visually with our intuitive drag and drop interface.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Responsive Design</h3>
-                <p>Your website will look perfect on all devices, from phones to desktops.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <h3>Blazing Fast</h3>
-                <p>Optimized for speed with clean code and minimal resource usage.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <h3>Customizable</h3>
-                <p>Change colors, fonts, layouts and more with just a few clicks.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Secure</h3>
-                <p>Built with security in mind to protect your data and your visitors.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <h3>24/7 Support</h3>
-                <p>Our expert team is always ready to help you with any questions.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section class="showcase">
-        <div class="showcase-content">
-            <div class="showcase-text">
-                <h2>Beautiful Designs That Convert</h2>
-                <p>Our professionally designed templates are optimized to engage visitors and turn them into customers. Choose from hundreds of stunning layouts.</p>
-                <p>Every element is carefully crafted to create a seamless user experience that represents your brand perfectly.</p>
-                <a href="#" class="btn">View Templates</a>
-            </div>
-            
-            <div class="showcase-image">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop" alt="Website showcase">
-            </div>
-        </div>
-    </section>
-    
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>10,000+</h3>
-                    <p>Happy Customers</p>
-                </div>
-                
-                <div class="stat-item">
-                    <h3>500+</h3>
-                    <p>Templates</p>
-                </div>
-                
-                <div class="stat-item">
-                    <h3>99.9%</h3>
-                    <p>Uptime</p>
-                </div>
-                
-                <div class="stat-item">
-                    <h3>24/7</h3>
-                    <p>Support</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="testimonials">
-        <div class="testimonials-container">
-            <div class="section-title">
-                <h2>What Our Customers Say</h2>
-                <p>Don't just take our word for it - hear from our satisfied customers</p>
-            </div>
-            
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "Lumina has completely transformed my business. I was able to create a professional website in just a few hours without any technical knowledge."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson">
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>CEO, Creative Solutions</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "The customer support is outstanding. They helped me customize my site exactly how I wanted it. I couldn't be happier with the results!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
-                        <div class="author-info">
-                            <h4>Michael Chen</h4>
-                            <p>Founder, TechStart</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "After trying several website builders, Lumina is by far the most intuitive and powerful. The designs are modern and the platform is incredibly easy to use."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emily Rodriguez">
-                        <div class="author-info">
-                            <h4>Emily Rodriguez</h4>
-                            <p>Marketing Director</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="cta">
-        <div class="cta-container">
-            <h2>Ready to Build Your Dream Website?</h2>
-            <p>Join thousands of satisfied customers who are already creating beautiful websites with Lumina.</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn">Get Started Now</a>
-                <a href="#" class="btn btn-outline">Request a Demo</a>
-            </div>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>About Lumina</h3>
-                <p>Lumina is a powerful website builder that helps businesses and individuals create stunning websites without any coding knowledge.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Templates</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Support</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Community</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Status</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Contact</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Design Street, Creative City</p>
-                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                <p><i class="fas fa-envelope"></i> hello@lumina.com</p>
-            </div>
-        </div>
+        // Current active page
+        let currentPage = 'countdown';
         
-        <div class="footer-bottom">
-            <p>&copy; 2023 Lumina. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </div>
-    </footer>
+        // Create falling hearts
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        // Switch between pages
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            page.classList.add('active');
+            
+            // Update current page
+            if (page === countdownPage) currentPage = 'countdown';
+            else if (page === birthdayPage) currentPage = 'birthday';
+            else if (page === poemPage) currentPage = 'poem';
+            
+            // Restart poem animations if navigating back to poem page
+            if (page === poemPage) {
+                const lines = document.querySelectorAll('.poem-line');
+                lines.forEach((line, index) => {
+                    line.style.animation = 'none';
+                    setTimeout(() => {
+                        line.style.animation = `fadeInLine 1s forwards ${index * 1 + 0.5}s`;
+                    }, 10);
+                });
+            }
+        }
+        
+        // Countdown timer function
+        function updateCountdown() {
+            const birthday = new Date('June 4, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = birthday - now;
+            
+            if (distance < 0 && currentPage === 'countdown') {
+                showPage(birthdayPage);
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        }
+        
+        // Event Listeners
+        poemBtn.addEventListener('click', () => {
+            showPage(poemPage);
+        });
+        
+        backBtn.addEventListener('click', () => {
+            showPage(birthdayPage);
+        });
+        
+        testBtn.addEventListener('click', () => {
+            showPage(birthdayPage);
+        });
+        
+        // Initialize
+        setInterval(createHearts, 300); // Create falling hearts
+        updateCountdown(); // Initial countdown update
+        setInterval(updateCountdown, 1000); // Update countdown every second
+        
+        // For testing - uncomment next line to show the test button
+        // testBtn.style.display = "block";
+    </script>
 </body>
 </html>
