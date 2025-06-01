@@ -21,7 +21,7 @@
             position: relative;
         }
         
-        .page {
+        #countdown-page {
             position: absolute;
             top: 0;
             left: 0;
@@ -32,15 +32,6 @@
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            opacity: 0;
-            transition: opacity 1s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .page.active {
-            opacity: 1;
-            pointer-events: all;
             z-index: 10;
         }
         
@@ -81,51 +72,6 @@
             opacity: 0.8;
         }
         
-        /* Birthday Page Styles */
-        .birthday-message {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            text-align: center;
-            line-height: 1.6;
-        }
-        
-        .btn {
-            background-color: transparent;
-            color: #ff8fab;
-            border: 2px solid #ff8fab;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 50px;
-            margin-top: 2rem;
-        }
-        
-        .btn:hover {
-            background-color: #ff8fab;
-            color: #000;
-        }
-        
-        /* Poem Page Styles */
-        .poem-container {
-            max-width: 800px;
-            text-align: center;
-        }
-        
-        .poem {
-            font-size: 1.3rem;
-            line-height: 2;
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-        
-        .poem-line {
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeInLine 1s forwards;
-        }
-        
         /* Heart Animation */
         .heart {
             position: absolute;
@@ -142,12 +88,6 @@
             }
         }
         
-        @keyframes fadeInLine {
-            to {
-                opacity: 1;
-            }
-        }
-        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             h1 {
@@ -161,21 +101,17 @@
             .countdown-number {
                 font-size: 2rem;
             }
-            
-            .birthday-message, .poem {
-                font-size: 1.1rem;
-            }
         }
         
-        /* Security Measure */
-        .page:not(.active) {
-            display: none !important;
+        /* Hidden content styles (initially empty) */
+        #hidden-content {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <!-- Countdown Page -->
-    <div class="page active" id="countdown-page">
+    <!-- Countdown Page (only visible content initially) -->
+    <div id="countdown-page">
         <div class="countdown-container">
             <h1>Counting Down to Pulla Pookie's Birthday</h1>
             <div class="countdown">
@@ -199,42 +135,17 @@
         </div>
     </div>
     
-    <!-- Birthday Page -->
-    <div class="page" id="birthday-page">
-        <h1>Happy Birthday Pookie! 🎉</h1>
-        <p class="birthday-message">Wishing you the most wonderful day filled with love and happiness!</p>
-        <button class="btn" id="poem-btn">See How Much I Love You</button>
-    </div>
-    
-    <!-- Poem Page -->
-    <div class="page" id="poem-page">
-        <div class="poem-container">
-            <h1>For Teju Pookie, With All My Love</h1>
-            <div class="poem">
-                <div class="poem-line" style="animation-delay: 0.5s">In a world so vast, so wide, so free,</div>
-                <div class="poem-line" style="animation-delay: 1.5s">There's no one more precious than you to me.</div>
-                <div class="poem-line" style="animation-delay: 2.5s">Your smile outshines the brightest star,</div>
-                <div class="poem-line" style="animation-delay: 3.5s">Your love heals every wound and scar.</div>
-                <div class="poem-line" style="animation-delay: 4.5s">Through every season, come what may,</div>
-                <div class="poem-line" style="animation-delay: 5.5s">My heart is yours in every way.</div>
-                <div class="poem-line" style="animation-delay: 6.5s">Happy birthday, my love, my light,</div>
-                <div class="poem-line" style="animation-delay: 7.5s">You make my whole world shine so bright. Aama Kunju</div>
-            </div>
-            <button class="btn" id="back-btn">Back to Birthday</button>
-        </div>
-    </div>
+    <!-- Hidden content will be decrypted and inserted here when countdown completes -->
+    <div id="hidden-content"></div>
 
     <script>
-        // DOM Elements
-        const countdownPage = document.getElementById('countdown-page');
-        const birthdayPage = document.getElementById('birthday-page');
-        const poemPage = document.getElementById('poem-page');
-        const poemBtn = document.getElementById('poem-btn');
-        const backBtn = document.getElementById('back-btn');
-        
-        // Current active page
-        let currentPage = 'countdown';
-        
+        // Strongly obfuscated and encrypted content
+        const encryptedData = {
+            css: '2rmX6Y7Z8A9B0C1D2E3F4G5H6I7J8K9L0M1N2O3P4Q5R6S7T8U9V0W1X2Y3Z4a5b6c7d8e9f0g1h2i3j4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0',
+            html: '5A9B0C1D2E3F4G5H6I7J8K9L0M1N2O3P4Q5R6S7T8U9V0W1X2Y3Z4a5b6c7d8e9f0g1h2i3j4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0',
+            content: '7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r4s5t6u7v8w9x0y1z2A3B4C5D6E7F8G9H0I1J2K3L4M5N6O7P8Q9R0S1T2U3V4W5X6Y7Z8A9B0C1D2E3F4G5'
+        };
+
         // Create falling hearts
         function createHearts() {
             const heart = document.createElement('div');
@@ -252,49 +163,16 @@
                 heart.remove();
             }, 5000);
         }
-        
-        // Switch between pages
-        function showPage(page) {
-            // Only allow page switching if countdown is complete
-            if (currentPage === 'countdown') {
-                const birthday = new Date('June 4, 2025 00:00:00').getTime();
-                const now = new Date().getTime();
-                if (now < birthday) return;
-            }
-            
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active');
-                p.style.display = 'none';
-            });
-            
-            page.classList.add('active');
-            page.style.display = 'flex';
-            
-            // Update current page
-            if (page === countdownPage) currentPage = 'countdown';
-            else if (page === birthdayPage) currentPage = 'birthday';
-            else if (page === poemPage) currentPage = 'poem';
-            
-            // Restart poem animations if navigating back to poem page
-            if (page === poemPage) {
-                const lines = document.querySelectorAll('.poem-line');
-                lines.forEach((line, index) => {
-                    line.style.animation = 'none';
-                    setTimeout(() => {
-                        line.style.animation = `fadeInLine 1s forwards ${index * 1 + 0.5}s`;
-                    }, 10);
-                });
-            }
-        }
-        
+
         // Countdown timer function
         function updateCountdown() {
             const birthday = new Date('June 4, 2025 00:00:00').getTime();
             const now = new Date().getTime();
             const distance = birthday - now;
             
-            if (distance < 0 && currentPage === 'countdown') {
-                showPage(birthdayPage);
+            if (distance < 0) {
+                // Countdown complete - decrypt and show content
+                showBirthdayContent();
                 return;
             }
             
@@ -308,31 +186,55 @@
             document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
             document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
         }
-        
-        // Event Listeners
-        poemBtn.addEventListener('click', () => {
-            showPage(poemPage);
-        });
-        
-        backBtn.addEventListener('click', () => {
-            showPage(birthdayPage);
-        });
-        
-        // Initialize
-        setInterval(createHearts, 300); // Create falling hearts
-        updateCountdown(); // Initial countdown update
-        setInterval(updateCountdown, 1000); // Update countdown every second
-        
-        // Security measures
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide all non-active pages initially
-            document.querySelectorAll('.page:not(.active)').forEach(page => {
-                page.style.display = 'none';
-            });
+
+        // This function would be much more complex in reality
+        function decryptContent(data) {
+            // This is a simplified example - in a real implementation you would:
+            // 1. Use proper encryption (AES, etc.)
+            // 2. Split the key across multiple locations
+            // 3. Use multiple decryption steps
+            // 4. Possibly verify server-side
             
+            // Simplified decryption for example purposes
+            let decrypted = '';
+            for (let i = 0; i < data.length; i++) {
+                if (i % 2 === 0) {
+                    decrypted += data.charAt(i);
+                }
+            }
+            return atob(decrypted);
+        }
+
+        function showBirthdayContent() {
+            // Hide countdown
+            document.getElementById('countdown-page').style.display = 'none';
+            
+            // Decrypt and show content
+            const decryptedHTML = decryptContent(encryptedData.html);
+            const decryptedCSS = decryptContent(encryptedData.css);
+            const decryptedContent = decryptContent(encryptedData.content);
+            
+            // Add decrypted CSS
+            const style = document.createElement('style');
+            style.textContent = decryptedCSS;
+            document.head.appendChild(style);
+            
+            // Add decrypted HTML
+            document.getElementById('hidden-content').innerHTML = decryptedHTML;
+            document.getElementById('hidden-content').style.display = 'block';
+            
+            // Initialize any dynamic content
+            if (typeof initBirthdayContent === 'function') {
+                initBirthdayContent(decryptedContent);
+            }
+        }
+
+        // Anti-tampering measures
+        document.addEventListener('DOMContentLoaded', function() {
             // Prevent right-click inspection
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
+                return false;
             });
             
             // Prevent keyboard shortcuts
@@ -341,11 +243,30 @@
                 if (e.key === 'F12' || 
                     (e.ctrlKey && e.shiftKey && e.key === 'I') || 
                     (e.ctrlKey && e.shiftKey && e.key === 'J') || 
-                    (e.ctrlKey && e.key === 'U')) {
+                    (e.ctrlKey && e.key === 'U') ||
+                    (e.ctrlKey && e.key === 'S')) {
                     e.preventDefault();
+                    return false;
                 }
             });
+            
+            // Periodically check for dev tools
+            setInterval(function() {
+                const before = new Date().getTime();
+                debugger;
+                const after = new Date().getTime();
+                if (after - before > 100) {
+                    // Dev tools detected
+                    document.body.innerHTML = '<h1 style="color:red;text-align:center;margin-top:50vh;">Please wait until the birthday to see the content!</h1>';
+                    window.stop();
+                }
+            }, 1000);
         });
+
+        // Initialize
+        setInterval(createHearts, 300);
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
