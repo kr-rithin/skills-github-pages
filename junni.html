@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pookie's Birthday</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #000;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #ff6b8b;
+            text-align: center;
+        }
+        
+        /* Countdown Page Styles */
+        .countdown-container {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        .countdown {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff8fab;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Birthday Page Styles */
+        .birthday-message {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            background-color: transparent;
+            color: #ff8fab;
+            border: 2px solid #ff8fab;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            margin-top: 2rem;
+        }
+        
+        .btn:hover {
+            background-color: #ff8fab;
+            color: #000;
+        }
+        
+        /* Poem Page Styles */
+        .poem-container {
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .poem {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+        
+        .poem-line {
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInLine 1s forwards;
+        }
+        
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            color: #ff6b8b;
+            font-size: 20px;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        @keyframes fadeInLine {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown {
+                gap: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .birthday-message, .poem {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Security Measure */
+        .page:not(.active) {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Countdown Page -->
+    <div class="page active" id="countdown-page">
+        <div class="countdown-container">
+            <h1>Counting Down to Pulla Pookie's Birthday</h1>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Birthday Page -->
+    <div class="page" id="birthday-page">
+        <h1>Happy Birthday Pookie! 🎉</h1>
+        <p class="birthday-message">Wishing you the most wonderful day filled with love and happiness!</p>
+        <button class="btn" id="poem-btn">See How Much I Love You</button>
+    </div>
+    
+    <!-- Poem Page -->
+    <div class="page" id="poem-page">
+        <div class="poem-container">
+            <h1>For Teju Pookie, With All My Love</h1>
+            <div class="poem">
+                <div class="poem-line" style="animation-delay: 0.5s">In a world so vast, so wide, so free,</div>
+                <div class="poem-line" style="animation-delay: 1.5s">There's no one more precious than you to me.</div>
+                <div class="poem-line" style="animation-delay: 2.5s">Your smile outshines the brightest star,</div>
+                <div class="poem-line" style="animation-delay: 3.5s">Your love heals every wound and scar.</div>
+                <div class="poem-line" style="animation-delay: 4.5s">Through every season, come what may,</div>
+                <div class="poem-line" style="animation-delay: 5.5s">My heart is yours in every way.</div>
+                <div class="poem-line" style="animation-delay: 6.5s">Happy birthday, my love, my light,</div>
+                <div class="poem-line" style="animation-delay: 7.5s">You make my whole world shine so bright. Aama Kunju</div>
+            </div>
+            <button class="btn" id="back-btn">Back to Birthday</button>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const countdownPage = document.getElementById('countdown-page');
+        const birthdayPage = document.getElementById('birthday-page');
+        const poemPage = document.getElementById('poem-page');
+        const poemBtn = document.getElementById('poem-btn');
+        const backBtn = document.getElementById('back-btn');
+        
+        // Current active page
+        let currentPage = 'countdown';
+        
+        // Create falling hearts
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        // Switch between pages
+        function showPage(page) {
+            // Only allow page switching if countdown is complete
+            if (currentPage === 'countdown') {
+                const birthday = new Date('June 4, 2025 00:00:00').getTime();
+                const now = new Date().getTime();
+                if (now < birthday) return;
+            }
+            
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+                p.style.display = 'none';
+            });
+            
+            page.classList.add('active');
+            page.style.display = 'flex';
+            
+            // Update current page
+            if (page === countdownPage) currentPage = 'countdown';
+            else if (page === birthdayPage) currentPage = 'birthday';
+            else if (page === poemPage) currentPage = 'poem';
+            
+            // Restart poem animations if navigating back to poem page
+            if (page === poemPage) {
+                const lines = document.querySelectorAll('.poem-line');
+                lines.forEach((line, index) => {
+                    line.style.animation = 'none';
+                    setTimeout(() => {
+                        line.style.animation = `fadeInLine 1s forwards ${index * 1 + 0.5}s`;
+                    }, 10);
+                });
+            }
+        }
+        
+        // Countdown timer function
+        function updateCountdown() {
+            const birthday = new Date('June 4, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = birthday - now;
+            
+            if (distance < 0 && currentPage === 'countdown') {
+                showPage(birthdayPage);
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        }
+        
+        // Event Listeners
+        poemBtn.addEventListener('click', () => {
+            showPage(poemPage);
+        });
+        
+        backBtn.addEventListener('click', () => {
+            showPage(birthdayPage);
+        });
+        
+        // Initialize
+        setInterval(createHearts, 300); // Create falling hearts
+        updateCountdown(); // Initial countdown update
+        setInterval(updateCountdown, 1000); // Update countdown every second
+        
+        // Security measures
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide all non-active pages initially
+            document.querySelectorAll('.page:not(.active)').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Prevent right-click inspection
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+            
+            // Prevent keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                    (e.ctrlKey && e.key === 'U')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
